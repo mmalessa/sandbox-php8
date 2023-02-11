@@ -6,7 +6,7 @@ namespace App\Sandbox\Printer;
 
 class Printer
 {
-    public function __construct(private PrinterType $type)
+    public function __construct(private readonly PrinterType $type)
     {
     }
 

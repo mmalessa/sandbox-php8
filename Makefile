@@ -70,6 +70,6 @@ tests-coverage: ## Run tests with console text coverage report (phpunit)
 tests-mutation: ## Run mutation tests (infection)
 	@infection
 
-# .PHONY: rector
-# rector: ## Run rector refactoring tool (dry-run)
-# 	@./vendor/bin/rector process src --dry-run
+.PHONY: rector
+rector: ## Run rector refactoring tool (dry-run)
+	@./vendor/bin/rector process src --dry-run
