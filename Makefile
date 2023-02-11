@@ -22,9 +22,9 @@ help:
 
 .PHONY: xdebug-setup
 xdebug-setup: ## xdebug gateway setup
-	# @if [ "Linux" = "$(PLATFORM)" ]; then \
-	# 	sed "s/DOCKER_GATEWAY/$(DOCKER_GATEWAY)/g" .docker/php-ini-overrides.ini.dist > .docker/php-ini-overrides.ini; \
-	# fi
+	@if [ "Linux" = "$(PLATFORM)" ]; then \
+		sed "s/DOCKER_GATEWAY/$(DOCKER_GATEWAY)/g" .docker/php-ini-overrides.ini.dist > .docker/php-ini-overrides.ini; \
+	fi
 
 .PHONY: build
 build: ## Build image
@@ -58,21 +58,17 @@ console: ## Enter into application container
 console-root: ## Enter into application container (as root)
 	@docker exec -it -u root $(CONTAINER_NAME) bash
 
-# .PHONY: tests
-# tests: ## Run tests (phpunit)
-# 	@./vendor/bin/phpunit --testsuite=all
+.PHONY: tests
+tests: ## Run tests (phpunit)
+	@./vendor/bin/phpunit --testsuite=unit
 
-# .PHONY: tests-unit
-# tests-unit: ## Run tests (phpunit)
-# 	@./vendor/bin/phpunit --testsuite=unit
+.PHONY: tests-coverage
+tests-coverage: ## Run tests with console text coverage report (phpunit)
+	@php -dxdebug.mode=coverage ./vendor/bin/phpunit --testsuite=unit --coverage-text
 
-# .PHONY: tests-coverage
-# tests-coverage: ## Run tests with console text coverage report (phpunit)
-# 	@php -dxdebug.mode=coverage ./vendor/bin/phpunit --testsuite=coverage --coverage-text
-
-# .PHONY: tests-mutation
-# tests-mutation: ## Run mutation tests (infection)
-# 	@infection
+.PHONY: tests-mutation
+tests-mutation: ## Run mutation tests (infection)
+	@infection
 
 # .PHONY: rector
 # rector: ## Run rector refactoring tool (dry-run)

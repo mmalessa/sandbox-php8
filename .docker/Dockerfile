@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y vim wget libicu-dev g++ zlib1g-dev
 RUN pecl install xdebug-3.2.0
 RUN docker-php-ext-enable xdebug
 RUN docker-php-ext-configure intl & docker-php-ext-install intl
-RUN wget https://github.com/infection/infection/releases/download/0.26.15/infection.phar -O /usr/bin/infection
+RUN wget https://github.com/infection/infection/releases/download/0.26.19/infection.phar -O /usr/bin/infection
 RUN chmod +x /usr/bin/infection
 ARG DEVELOPER_UID
 RUN useradd -m -s /bin/bash -u ${DEVELOPER_UID} developer
