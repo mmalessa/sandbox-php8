@@ -2,13 +2,17 @@ version: '3.7'
 
 services:
 
-    app:
-        image: ${APP_IMAGE}
-        container_name: ${CONTAINER_NAME}
+    php:
+        build:
+            context: .
+            target: local
+            args:
+                UID: 1000
+                USER: local
         restart: on-failure
         volumes:
-            - ../:/app/
-            - ./php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+            - ./:/app/
+            - ./.docker/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
             - app_home:/home/developer
         working_dir: /app
         tty: true
